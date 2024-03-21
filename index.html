@@ -4,14 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projeto 1 - Deck of Cards</title>
-    
+    <style> /*css*/</style>
 </head>
 <body>
     <h1>Projeto 1 - Deck of Cards</h1>
-   
+    
     <div id="app">
-       
+        <button id="shuffleButton">Embaralhar Baralho</button>
+        <div id="deck"></div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#shuffleButton').click(function() {
+                $.ajax({
+                    url: 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',
+                    method: 'GET',
+                    success: function(response) {
+                        var deckId = response.deck_id;
+                        $.ajax({
+                            url: 'https://deckofcardsapi.com/api/deck/'+ deckId +'/draw/?count=52',
+                            method: 'GET',
+                            success: function(response) {
+                                var cards = response.cards;
+                                var deckHTML = '';
+                                cards.forEach(function(card) {
+                                    deckHTML += '<img src="' + card.image + '" alt="' + card.code + '">';
+                                });
+                                $('#deck').html(deckHTML);
+                            },
+                            error: function(err) {
+                                console.log('Erro ao buscar cartas:', err);
+                            }
+                        });
+                    },
+                    error: function(err) {
+                        console.log('Erro ao embaralhar baralho:', err);
+                    }
+                });
+            });
+        });
+    </script>
+    
+
 
     
 </body>
