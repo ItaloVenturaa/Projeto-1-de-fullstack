@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projeto 1 - Deck of Cards</title>
-    <style> /*css*/</style>
 </head>
 <body>
     <h1>Projeto 1 - Deck of Cards</h1>
-    
     <div id="app">
         <button id="shuffleButton">Embaralhar Baralho</button>
+        <div id="buttons">
+            <button id="btnQ">Mostrar Q</button>
+            <button id="btnJ">Mostrar J</button>
+            <button id="btnK">Mostrar K</button>
+        </div>
         <div id="deck"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#shuffleButton').click(function() {
@@ -31,7 +33,7 @@
                                 var cards = response.cards;
                                 var deckHTML = '';
                                 cards.forEach(function(card) {
-                                    deckHTML += '<img src="' + card.image + '" alt="' + card.code + '">';
+                                    deckHTML += '<img src="' + card.image + '" alt="' + card.code + '" class="card">';
                                 });
                                 $('#deck').html(deckHTML);
                             },
@@ -45,11 +47,22 @@
                     }
                 });
             });
+            
+            $('#btnQ').click(function() {
+                $('.card').hide();
+                $('.card[alt*="Q"]').show();
+            });
+
+            $('#btnJ').click(function() {
+                $('.card').hide();
+                $('.card[alt*="J"]').show();
+            });
+
+            $('#btnK').click(function() {
+                $('.card').hide();
+                $('.card[alt*="K"]').show();
+            });
         });
     </script>
-    
-
-
-    
 </body>
 </html>
