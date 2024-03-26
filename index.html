@@ -3,67 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto 1 - Deck of Cards</title>
-    <style> /*css*/</style>
+    <title>Pesquisa Valorant</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Projeto 1 - Deck of Cards</h1>
-    <div id="app">
-        <button id="shuffleButton">Embaralhar Baralho</button>
-        <div id="buttons">
-            <button id="btnQ">Mostrar Q</button>
-            <button id="btnJ">Mostrar J</button>
-            <button id="btnK">Mostrar K</button>
-        </div>
-        <div id="deck"></div>
-    </div>
+    <h1>Pesquisa Valorant</h1>
+    <form id="searchForm">
+        <label for="agentInput">Pesquisar Agente:</label>
+        <input type="text" id="agentInput" name="agentInput">
+        <label for="mapInput">Pesquisar Mapa:</label>
+        <input type="text" id="mapInput" name="mapInput">
+        <button type="submit">Pesquisar</button>
+    </form>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#shuffleButton').click(function() {
-                $.ajax({
-                    url: 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',
-                    method: 'GET',
-                    success: function(response) {
-                        var deckId = response.deck_id;
-                        $.ajax({
-                            url: 'https://deckofcardsapi.com/api/deck/'+ deckId +'/draw/?count=52',
-                            method: 'GET',
-                            success: function(response) {
-                                var cards = response.cards;
-                                var deckHTML = '';
-                                cards.forEach(function(card) {
-                                    deckHTML += '<img src="' + card.image + '" alt="' + card.code + '" class="card">';
-                                });
-                                $('#deck').html(deckHTML);
-                            },
-                            error: function(err) {
-                                console.log('Erro ao buscar cartas:', err);
-                            }
-                        });
-                    },
-                    error: function(err) {
-                        console.log('Erro ao embaralhar baralho:', err);
-                    }
-                });
-            });
+    <div id="results"></div>
 
-            $('#btnQ').click(function() {
-                $('.card').hide();
-                $('.card[alt*="Q"]').show();
-            });
-
-            $('#btnJ').click(function() {
-                $('.card').hide();
-                $('.card[alt*="J"]').show();
-            });
-
-            $('#btnK').click(function() {
-                $('.card').hide();
-                $('.card[alt*="K"]').show();
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
