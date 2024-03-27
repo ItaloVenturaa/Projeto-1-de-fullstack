@@ -3,9 +3,9 @@ img {
     max-width: 600px;
     display: block;
     margin-top: 10px;
-    margin-left: -300px; /* Metade da largura da imagem */
-    left: 50%; /* Move a imagem para o meio */
-    position: absolute; /* Define a posição da imagem */
+    margin-left: -300px; 
+    left: 50%; 
+    position: absolute;
     padding: 20px;
 }
 
