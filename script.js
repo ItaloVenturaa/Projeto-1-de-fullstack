@@ -92,7 +92,6 @@ function displayError(message) {
     resultsElement.innerHTML = `<p class="error">${message}</p>`;
 }
 
-// Função para exibir a lista de agentes
 function displayAgentList(agentNames) {
     const agentListElement = document.getElementById('agentList');
     const agentList = document.createElement('ul');
