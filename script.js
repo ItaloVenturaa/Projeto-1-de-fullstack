@@ -11,26 +11,48 @@ document.getElementById('searchForm').addEventListener('submit', async function(
     const mapTerm = mapInputElement.value.trim();
 
     try {
-        if (agentTerm && mapTerm) {
-            throw new Error('Preencha apenas um dos campos: Agente ou Mapa.');
-        }
-
-        if (!agentTerm && !mapTerm) {
-            throw new Error('Preencha pelo menos um dos campos de pesquisa.');
-        }
-
         clearResults();
 
-        if (agentTerm) {
-            displayAgentInfo(await fetchAgentInfo(agentTerm));
+        if (!agentTerm && !mapTerm) {
+            displayAllAgents(await fetchAllAgents());
+            displayAllMaps(await fetchAllMaps());
         } else {
-            displayMapInfo(await fetchMapInfo(mapTerm));
+            if (agentTerm) {
+                const agentInfo = await fetchAgentInfo(agentTerm);
+                displayAgentInfo(agentInfo);
+            }
+            if (mapTerm) {
+                const mapInfo = await fetchMapInfo(mapTerm);
+                displayMapInfo(mapInfo);
+            }
         }
     } catch (error) {
         console.error(error);
         displayError(error.message);
     }
 });
+
+async function fetchAllAgents() {
+    const response = await fetch(API_URL + 'agents');
+    const data = await response.json();
+
+    if (data.status !== 200) {
+        throw new Error('Erro ao obter a lista de agentes.');
+    }
+
+    return data.data;
+}
+
+async function fetchAllMaps() {
+    const response = await fetch(API_URL + 'maps');
+    const data = await response.json();
+
+    if (data.status !== 200) {
+        throw new Error('Erro ao obter a lista de mapas.');
+    }
+
+    return data.data;
+}
 
 async function fetchAgentInfo(agentName) {
     const response = await fetch(API_URL + 'agents?name=' + agentName);
@@ -70,6 +92,32 @@ function clearResults() {
     resultsElement.innerHTML = '';
 }
 
+function displayAllAgents(agents) {
+    agents.forEach(agent => {
+        const agentElement = document.createElement('div');
+        agentElement.classList.add('agent');
+        agentElement.innerHTML = `
+            <h2>${agent.displayName}</h2>
+            <p>${agent.description}</p>
+            <img src="${agent.bustPortrait}" alt="${agent.displayName}">
+        `;
+        resultsElement.appendChild(agentElement);
+    });
+}
+
+function displayAllMaps(maps) {
+    maps.forEach(map => {
+        const mapElement = document.createElement('div');
+        mapElement.classList.add('map');
+        mapElement.innerHTML = `
+            <h2>${map.displayName}</h2>
+            <p>${map.narrativeDescription}</p>
+            <img src="${map.splash}" alt="${map.displayName}">
+        `;
+        resultsElement.appendChild(mapElement);
+    });
+}
+
 function displayAgentInfo(agentData) {
     const { displayName, description, bustPortrait } = agentData;
     resultsElement.innerHTML = `
@@ -90,19 +138,4 @@ function displayMapInfo(mapData) {
 
 function displayError(message) {
     resultsElement.innerHTML = `<p class="error">${message}</p>`;
-}
-
-// Função para exibir a lista de agentes
-function displayAgentList(agentNames) {
-    const agentListElement = document.getElementById('agentList');
-    const agentList = document.createElement('ul');
-
-    agentNames.forEach(agentName => {
-        const listItem = document.createElement('li');
-        listItem.textContent = agentName;
-        agentList.appendChild(listItem);
-    });
-
-    agentListElement.innerHTML = '<h2>Lista de Agentes:</h2>';
-    agentListElement.appendChild(agentList);
 }

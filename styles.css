@@ -1,12 +1,6 @@
-
 img {
-    max-width: 600px;
+    max-width: 100%;
     display: block;
-    margin-top: 10px;
-    margin-left: -300px; /* Metade da largura da imagem */
-    left: 50%; /* Move a imagem para o meio */
-    position: absolute; /* Define a posição da imagem */
-    padding: 20px;
 }
 
 body {
@@ -20,43 +14,36 @@ h1 {
     text-align: center;
 }
 
-form {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.lists-container {
-    display: flex;
-    justify-content: space-between; 
-}
-
-.list {
-    flex: 1;
-    margin-right: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    text-align: center; 
-}
-
 h2, p {
     margin: 15px; 
     text-align: center;
     margin-top: 15px;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+form {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
 
-li {
-    margin-bottom: 5px;
+.agent, .map {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
 }
 
+.agent img, .map img {
+    max-width: 250px; 
+    display: block;
+    margin: 0 auto 10px; 
+}
+
+.agent h2, .map h2 {
+    margin-top: 0; 
+}
 
 button {
     padding: 10px 20px;
