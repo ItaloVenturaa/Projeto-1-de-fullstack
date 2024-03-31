@@ -10,14 +10,14 @@ body {
     background-color: rgba(100, 100, 100, 1);
 }
 
-h1 {
-    text-align: center;
-}
-
 h2, p {
     margin: 15px; 
     text-align: center;
     margin-top: 15px;
+}
+
+h1 {
+    text-align: center;
 }
 
 form {
@@ -36,7 +36,7 @@ form {
 }
 
 .agent img, .map img {
-    max-width: 250px; 
+    max-width: 150px; 
     display: block;
     margin: 0 auto 10px; 
 }
