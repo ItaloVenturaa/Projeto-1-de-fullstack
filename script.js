@@ -11,6 +11,11 @@ document.getElementById('searchForm').addEventListener('submit', async function(
     const mapTerm = mapInputElement.value.trim();
 
     try {
+
+        if (agentTerm && mapTerm) {
+            throw new Error('Preencha apenas um dos campos: Agente ou Mapa.');
+        }
+
         clearResults();
 
         if (!agentTerm && !mapTerm) {
